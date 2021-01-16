@@ -19,8 +19,7 @@ router.post('/books', (req, res) => {
         title: req.body.title,
         author: req.body.author,
         image: req.body.image,
-        category: req.body.category,
-        available: req.body.available
+        gerne: req.body.gerne
     }
     console.log(newBook);    
     Books.addBook(newBook, (error, books) => {
@@ -47,8 +46,7 @@ router.put('/books/:_id',  (req, res) => {
         title: req.body.title,
         author: req.body.author,
         image: req.body.image,
-        category: req.body.category,
-        available: req.body.available
+        gerne: req.body.gerne
     }
     Books.updateBook(req.params._id, update, (error, books) => {
         if (error) {
@@ -81,24 +79,7 @@ router.patch('/books/:_id', (req, res) => {
 })
 
 router.patch('/book/:_id', async (req, res)=>{
-    //This is used to update the availability of the book as well as to remove the last borrower of book
-
-    //find the book by _id
-    const book = await Book.findById(req.params._id);
-
-    const bookBorrower = book.borrower[0];
-    
-    //pop the borrower
-    if (book.borrower.length > 0) {        
-        book.borrower.pop();
-    }
-
-    //save the book
-    await book.save();
-
-    //patch with availability status true
-    var update = req.body;
-    await Books.updateBook(req.params._id, update, (error, books) => {
+ Books.updateBook(req.params._id, update, (error, books) => {
         if (error) {
             throw error
         } else {

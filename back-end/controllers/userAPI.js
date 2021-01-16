@@ -32,11 +32,3 @@ module.exports = {
         });
     }
 }
-
-/*
-    we can interact with mongoose in 3 ways
-
-    1) Callbacks
-    2) Promises
-    3) Async/Await (Promises)
-*/
